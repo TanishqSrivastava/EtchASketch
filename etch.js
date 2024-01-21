@@ -1,5 +1,5 @@
 const grid = document.getElementById("grid");
-const head = document.getElementById("heading");
+let heading = document.getElementById("heading");
 var currentMode = "";
 function setupGrid(size){
     grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
@@ -17,7 +17,7 @@ function setupGrid(size){
 
 const whiteBtn = document.getElementById("colorWhite");
 const rainbowBtn = document.getElementById("colorRainbow");
-
+const eraserBtn = document.getElementById("eraser");
 
 function currentMode(){
     
@@ -30,27 +30,37 @@ function changeColor(e){
         const randomG = Math.floor(Math.random() * 256);
         const randomB = Math.floor(Math.random() * 256);
         e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+    }else if(currentMode == 'eraser'){
+        e.target.style.backgroundColor = 'black';
     }
 }
 
-setupGrid(16);
+setupGrid(32);
 function setCurrentMode(newMode){
     activateButton(newMode);
     currentMode = newMode;
 }
 function activateButton(newMode){
     if (newMode == 'rainbow'){
-        head.innerHTML = "Rainbow";
+        heading.innerHTML = "Rainbow";
     }else if(newMode=='white'){
-        head.innerHTML = "White";
+        heading.innerHTML = "White";
+    }else if(newMode=='eraser'){
+        heading.innerHTML = "Eraser";
     }
 }
 window.onload = () => {
     
     
 
-    whiteBtn.onclick = () => {currentMode = 'white'};
-    rainbowBtn.onclick = () => {currentMode = 'rainbow'};
+    whiteBtn.onclick = () => setCurrentMode('white');
+    rainbowBtn.onclick = () => setCurrentMode('rainbow');
+    eraserBtn.onclick = () => setCurrentMode('eraser');   
     
-    
+}
+
+window.onkeydown = function(event){
+    if (event.keyCode === 32){
+        setCurrentMode('eraser');
+    }
 }
