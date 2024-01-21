@@ -32,6 +32,8 @@ function changeColor(e){
         e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
     }else if(currentMode == 'eraser'){
         e.target.style.backgroundColor = 'black';
+    }else if(currentMode == 'none'){
+        
     }
 }
 
@@ -47,6 +49,8 @@ function activateButton(newMode){
         heading.innerHTML = "White";
     }else if(newMode=='eraser'){
         heading.innerHTML = "Eraser";
+    }else if(newMode == 'none'){
+        heading.innerHTML = "No Mode";
     }
 }
 window.onload = () => {
@@ -60,6 +64,9 @@ window.onload = () => {
 }
 
 window.onkeydown = function(event){
+    if (event.keyCode === 78){
+        setCurrentMode('none');
+    }
     if (event.keyCode === 32){
         setCurrentMode('eraser');
     }
