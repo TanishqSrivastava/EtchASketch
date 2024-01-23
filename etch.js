@@ -1,6 +1,7 @@
 const grid = document.getElementById("grid");
 let heading = document.getElementById("heading");
 var currentMode = "";
+var draw = false;
 function setupGrid(size){
     grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
     grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
@@ -23,16 +24,16 @@ function currentMode(){
     
 }
 function changeColor(e){
-    if (currentMode == 'white'){
+    if (currentMode == 'white' && draw == true){
         e.target.style.backgroundColor= '#fefefe';
-    }else if(currentMode == 'rainbow'){
+    }else if(currentMode == 'rainbow' && draw == true){
         const randomR = Math.floor(Math.random() * 256);
         const randomG = Math.floor(Math.random() * 256);
         const randomB = Math.floor(Math.random() * 256);
         e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
-    }else if(currentMode == 'eraser'){
+    }else if(currentMode == 'eraser' && draw == true){
         e.target.style.backgroundColor = 'black';
-    }else if(currentMode == 'none'){
+    }else if(currentMode == 'none' || draw == false){
         
     }
 }
@@ -70,4 +71,10 @@ window.onkeydown = function(event){
     if (event.keyCode === 32){
         setCurrentMode('eraser');
     }
+}
+window.onmousedown = function(){
+    draw = true;
+}
+window.onmouseup = function(){
+    draw = false;
 }
